@@ -6,8 +6,20 @@ class PessoaRequests {
     }
 
     async listarPessoas() {
+        const token = localStorage.getItem('token'); // recupera o token do localStorage
+
         try {
-            const response = await fetch(`${this.serverUrl}${this.routeListarPessoas}`);
+            const response = await fetch(`${this.serverUrl}${this.routeListarPessoas}`,
+            {
+               method: 'GET',
+               headers: {
+                   'Content-type':'application/json',
+                   'x-acess-token': `${token}` //presta o token no cabecalho da requisicao 
+               }
+
+
+            }
+            );
 
             if(!response.ok) {
                 throw new Error('Não foi possível listar as pessoas.');
